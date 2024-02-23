@@ -47,8 +47,7 @@ export async function CreateClass(classId,className,subjectId,teacherId,date_ka,
 
 const classes = await getClasses();
 const singleClass = await getClass(2);
-const CreateResult = await CreateClass(6,'ca223',2,2,null,null);
-console.log(CreateResult);
+const CreateResult = await CreateClass(40,'ca229',2,2,null,null);
 
 
 

@@ -1,9 +1,9 @@
-const express = require("express");
-
+const express = require('express');
+const cors = require("cors");
 const app = express();
+import { getClass, getClasses, CreateClass } from "./database.js";
 
-import { getClass, getClasses, CreateClass } from "./database";
-
+app.use(cors())
 app.use(express.urlencoded({extended: false}))
 
 app.get("/classes", async (req, res) => {
@@ -48,4 +48,31 @@ express 5  has async express handler
 which allows us to write async code that could
 couse an error and we can handle that error
 in single location
+*/
+
+
+
+/* 
+
+const db = mysql.creatConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'classes'
+})
+
+
+app.get('/classes', (req, res) => {
+  const sql = "select * from classes"
+  db.query(sql, (err, data) => {
+    if(err){
+      return res.json(err)
+    }
+    return res.json(data)
+  })
+})
+
+
+
+
 */
