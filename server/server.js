@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require("cors");
+import express from 'express';
+import cors from "cors";
 const app = express();
 import { getClass, getClasses, CreateClass } from "./database.js";
 
@@ -8,23 +8,25 @@ app.use(express.urlencoded({extended: false}))
 
 app.get("/classes", async (req, res) => {
   const classes = await getClasses();
-  req.send(classes);
+  res.status(200).json((classes));
 });
 
 app.get("/classes:id", async (req, res) => {
   const id = req.params.id;
+  if(!id){
+    return res.status(404).json({message: 'no id'})
+  }
   const singleClass = await getClass(id);
-  req.send(singleClass);
+  if(!singleClass) return res.status(404).json({message: 'error getting single class'});
+  res.status(200).json((singleClass));
 });
 
 app.post("/classes", async (req, res) => {
-  const { className, subjectId, teacherId, date_ka, day_ka } = req.body;
+  const { className, subjectId, teacherId} = req.body;
   const createClass = CreateClass(
     className,
     subjectId,
     teacherId,
-    date_ka,
-    day_ka
   );
   res.status(201).send(createClass);
 });
@@ -38,7 +40,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("something went wrong");
 });
 
-app.listen(5000, () => {
+app.listen(4000, () => {
   console.log("listening on port 5000");
 });
 

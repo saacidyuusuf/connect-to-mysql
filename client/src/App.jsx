@@ -23,7 +23,10 @@ function App() {
       <div>
         {data.map((data) =>(
           <div id={data.id}>
-            <h3>{data.name}</h3>
+            {console.log(data)}
+            <h3>{data.className}</h3>
+            <p>{data.subjectName}</p>
+            <p>{data.teacherName}</p>
           </div>
         ))}
       </div>
